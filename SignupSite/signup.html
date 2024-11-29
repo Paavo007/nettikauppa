@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up</title>
+    <link rel="stylesheet" href="signup.css">
+</head>
+<body>
+    <div class="wrapper">
+        <div class="header">
+            <img src="../Images/placeholder-image.png" alt="Logo" class="logo">
+            <a href="../index.html" target="_blank"><img src="../SVG/homepage-icon.svg" alt="" class="homepage-icon"></a>
+        </div>
+        <div class="main">
+            <div class="signup-container">
+                <h2>Sign Up</h2>
+                <form id="signup-form" action="/submit-your-form-handler" method="POST">
+                    <div class="input-group">
+                        <label for="username">Username</label>
+                        <input type="text" id="username" name="username" required>
+                    </div>
+                    <div class="input-group">
+                        <label for="email">Email</label>
+                        <input type="email" id="email" name="email" required>
+                    </div>
+                    <div class="input-group">
+                        <label for="password">Password</label>
+                        <input type="password" id="password" name="password" required>
+                    </div>
+                    <div class="input-group">
+                        <label for="confirm-password">Confirm Password</label>
+                        <input type="password" id="confirm-password" name="confirm-password" required>
+                    </div>
+                    <button type="submit" class="signup-btn">Sign Up</button>
+                </form>
+                <p>Already have an account? <a href="../LoginSite/login.html" target="_blank">Log in</a></p>
+            </div>
+        </div>
+        <div class="footer">
+            <p>Follow us here:</p>
+            <img src="../SVG/facebook.svg" alt="Facebook">
+            <img src="../SVG/instagram.svg" alt="Instagram">
+            <img src="../SVG/linkedin.svg" alt="LinkedIn">
+            <img src="../SVG/tiktok.svg" alt="TikTok">
+            <img src="../SVG/twitterx.svg" alt="Twitter">
+            <p>Contact us:</p> <a href="#">Contact Info</a>
+            <p>©2024 Paavo Björkbacka</p>
+        </div>
+    </div>
+
+    <script>
+        // Simple form validation for password match
+        document.getElementById('signup-form').addEventListener('submit', function (e) {
+            var password = document.getElementById('password').value;
+            var confirmPassword = document.getElementById('confirm-password').value;
+
+            if (password !== confirmPassword) {
+                alert("Passwords do not match.");
+                e.preventDefault(); // Prevent form submission
+            }
+        });
+    </script>
+</body>
+</html>

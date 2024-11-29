@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Verkkokauppa</title>
+    <link rel="stylesheet" href="login.css">
+    <script src="dropdown.js" defer></script>
+</head>
+<body>
+    <div class="wrapper">
+        <div class="header">
+            <img src="../Images/placeholder-image.png" alt="" class="logo">
+            <a href="../index.html" target="_blank"><img src="../SVG/homepage-icon.svg" alt="" class="homepage-icon"></a>        
+        </div>
+        <div class="main">
+            <div class="login-container">
+                <h2>Login</h2>
+                <form action="/submit-your-form-handler" method="POST">
+                    <div class="input-group">
+                        <label for="username">Username</label>
+                        <input type="text" id="username" name="username" required>
+                    </div>
+                    <div class="input-group">
+                        <label for="password">Password</label>
+                        <input type="password" id="password" name="password" required>
+                    </div>
+                    <button type="submit" class="login-btn">Sign In</button>
+                </form>
+                <p>Don't have an account? <a href="../SignupSite/signup.html" target="_blank">Sign up</a></p>
+            </div>
+        </div>
+        <div class="footer">
+            <p>Seuraa meitä täällä:</p>
+            <img src="../SVG/facebook.svg" alt="">
+            <img src="../SVG/instagram.svg" alt="">
+            <img src="../SVG/linkedin.svg" alt="">
+            <img src="../SVG/tiktok.svg" alt="">
+            <img src="../SVG/twitterx.svg" alt="">
+            <p>Ota yhteyttä:</p> <a href="#">Yhteystiedot</a>
+            <p>©2024 Paavo Björkbacka</p>
+        </div>
+    </div>
+</body>
+</html>
