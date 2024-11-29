@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Verkkokauppa</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="dropdown.js" defer></script>
+</head>
+<body>
+    <div class="wrapper">
+        <div class="header">
+            <img src="Images/placeholder-image.png" alt="" class="logo">
+            <div class="search-container">
+                <input type="text" placeholder="Search.." class="search-bar">
+                <img src="SVG/search_icon.svg" alt="Search Icon" class="search-icon">
+            </div>
+            <button class="sign-in">
+                <p>Sign In</p>
+                <img src="SVG/signin-icon.svg" alt="Sign In Icon" class="sign-in-icon">
+            </button>
+            <img class="dropdown-menu-icon" src="SVG/menu_icon.svg" alt="dropdown menu" onclick="toggleDropdown()">
+            <div class="dropdown-menu" id="dropdown-menu">
+                <ul>
+                    <li><a href="#" target="_blank">Dropdown Link 1</a></li>
+                    <li><a href="#" target="_blank">Dropdown Link 2</a></li>
+                    <li><a href="#" target="_blank">Dropdown Link 3</a></li>
+                    <li><a href="#">Dropdown Link 4</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="main">
+            <div class="image-box">
+                <img src="Images/placeholder-image.png" alt="Placeholder image" class="shop-item">
+                <p>Kuvan 1 alapuolella olevaa tekstiä</p>
+            </div>
+            <div class="image-box">
+                <img src="Images/placeholder-image.png" alt="Placeholder image" class="shop-item">
+                <p>Kuvan 2 alapuolella olevaa tekstiä</p>
+            </div>
+        </div>
+        <div class="footer">
+            <p>Seuraa meitä täällä:</p>
+            <img src="SVG/facebook.svg" alt="">
+            <img src="SVG/instagram.svg" alt="">
+            <img src="SVG/linkedin.svg" alt="">
+            <img src="SVG/tiktok.svg" alt="">
+            <img src="SVG/twitterx.svg" alt="">
+            <p>Ota yhteyttä:</p> <a href="#">Yhteystiedot</a>
+            <p>©2024 Paavo Björkbacka</p>
+        </div>
+    </div>
+</body>
+</html>

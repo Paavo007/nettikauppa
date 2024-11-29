@@ -1,0 +1,226 @@
+.wrapper {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+}
+
+.wrapper > * {
+    padding: 10px;
+    border-radius: 10px;
+}
+
+/* Header styling */
+.header {
+    background: tomato;
+    height: 120px;
+    display: flex;
+    align-items: center;
+    padding: 0 20px;
+    position: relative;
+    justify-content: space-between;
+}
+
+/* Logo styling */
+.logo {
+    height: 80px; /* Adjusted height for visibility */
+    padding-right: 10px;
+}
+
+/* Sign-in button styling */
+.sign-in {
+    margin: 15px;
+    flex-shrink: 0;
+    border-radius: 10px;
+    display: inline-flex;  /* Inline-flex for button to be compact */
+    align-items: center;  /* Vertically align content */
+    border: none;
+    background-color: rgb(120, 255, 79);
+    cursor: pointer;
+    padding: 5px 15px;  /* Adjust padding for content space */
+}
+
+.sign-in-icon {
+    height: 25px;
+}
+
+/* Search bar styling */
+.search-container {
+    position: relative;
+    display: flex;
+    align-items: center;
+    flex-grow: 1;
+    max-width: 60%;
+}
+
+.search-bar {
+    border-radius: 10px;
+    padding: 6px 20px 6px 10px;
+    border: none;
+    font-size: 17px;
+    width: 100%;
+    max-width: 300px;
+}
+
+.search-icon {
+    height: 20px;
+    margin-left: -30px;
+    cursor: pointer;
+}
+
+/* Main content styling */
+.main {
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    background: lightgreen;
+    padding: 20px;
+    gap: 20px;
+    flex: 1;
+}
+
+/* Image boxes */
+.image-box {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 10px;
+    border: 2px solid black;
+    border-radius: 10px;
+    background: white;
+    width: 45%; /* Default width */
+    box-sizing: border-box;
+}
+
+.shop-item {
+    width: 100%;
+    height: auto;
+    margin-bottom: 10px;
+}
+
+.image-box p {
+    font-size: 16px;
+    color: black;
+    margin: 0;
+    text-align: center;
+}
+
+/* Footer styling */
+.footer {
+    background: rgb(238, 178, 144);
+    height: auto;
+    flex-shrink: 0;
+    text-align: center;
+    padding: 10px 0;
+}
+
+.footer p {
+    margin: 5px 0;
+}
+
+/* Footer social media icons */
+.footer img {
+    margin: 0 10px;
+    height: 25px;
+    cursor: pointer;
+}
+
+/* Dropdown menu styling */
+.dropdown-menu-icon {
+    height: 2rem;
+    cursor: pointer;
+    margin-left: auto;
+}
+
+.dropdown-menu {
+    display: none;
+    position: absolute;
+    top: 100%;
+    right: 20px;
+    background-color: white;
+    box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
+    z-index: 1;
+}
+
+.dropdown-menu ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.dropdown-menu ul li {
+    padding: 12px 16px;
+}
+
+.dropdown-menu ul li a {
+    text-decoration: none;
+    color: black;
+}
+
+.dropdown-menu.show {
+    display: block;
+}
+
+/* Media Query for smaller screens */
+@media all and (max-width: 750px) {
+    .main, .header, .footer {
+        font-size: 28px;
+    }
+
+    .logo {
+        height: 60px; /* Adjusted height for mobile */
+        padding-right: 10px;
+    }
+
+    .dropdown-menu-icon {
+        height: 37%;
+    }
+
+    .dropdown-menu-icon:hover {
+        height: 39%;
+    }
+
+    .shop-item {
+        width: 90%;
+    }
+
+    .search-container {
+        width: 100%;
+    }
+
+    .search-bar {
+        width: 90%;
+    }
+
+    .sign-in {
+        width: 100px;
+        height: 37%;
+    }
+
+    .sign-in:hover {
+        /*width: 105px;*/
+        /*height: 39%;*/
+        background-color: rgb(90, 248, 42);
+    }
+
+    /* Footer social icons */
+    .footer img {
+        margin: 5px;
+        height: 30px;
+    }
+
+    .footer p {
+        font-size: 16px;
+    }
+}
+
+/* Media Query for larger screens */
+@media all and (min-width: 750px) {
+    .main, .header, .footer {
+        font-size: 40px;
+    }
+
+    .dropdown-menu-icon {
+        display: none;
+    }
+}
