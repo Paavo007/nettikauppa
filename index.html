@@ -17,17 +17,26 @@
             </div>
             <a href="LoginSite/login.html" target="_blank">
                 <button class="sign-in">
-                    <p>Sign In</p>
+                    <p>Login</p>
                     <img src="SVG/signin-icon.svg" alt="Sign In Icon" class="sign-in-icon">
                 </button>
             </a>
-            <img class="dropdown-menu-icon" src="SVG/menu_icon.svg" alt="dropdown menu" onclick="toggleDropdown()">
+            <div class="menu-icons">
+                <!-- Menu icon SVG -->
+                <img id="menu-icon" class="dropdown-menu-icon" src="SVG/menu_icon.svg" alt="Menu Icon" onclick="toggleDropdown()" style="cursor: pointer;">
+                <!-- Close icon SVG -->
+                <img id="close-icon"class="dropdown-menu-icon" src="SVG/X-icon.svg" alt="Close Icon" onclick="toggleDropdown()" style="cursor: pointer;">
+            </div>
             <div class="dropdown-menu" id="dropdown-menu">
-                <ul>
-                    <li><a href="#" target="_blank">Dropdown Link 1</a></li>
-                    <li><a href="#" target="_blank">Dropdown Link 2</a></li>
-                    <li><a href="#" target="_blank">Dropdown Link 3</a></li>
-                    <li><a href="#">Dropdown Link 4</a></li>
+                <div class="dropdown-header">
+                    <p>Tuotteet</p>
+                    <img id="plus-icon" src="SVG/plus-icon.svg" alt="Plus Icon" onclick="toggleNestedOptions()">
+                    <img id="minus-icon" src="SVG/minus-icon.svg" alt="Minus Icon" onclick="toggleNestedOptions()" style="display: none;">
+                </div>
+                <ul id="nested-options" class="nested-dropdown">
+                    <li><a href="#">Tuote 1</a></li>
+                    <li><a href="#">Tuote 2</a></li>
+                    <li><a href="#">Tuote 3</a></li>
                 </ul>
             </div>
         </div>
@@ -48,7 +57,7 @@
             <img src="SVG/linkedin.svg" alt="">
             <img src="SVG/tiktok.svg" alt="">
             <img src="SVG/twitterx.svg" alt="">
-            <p>Ota yhteyttä:</p> <a href="#">Yhteystiedot</a>
+            <p>Ota yhteyttä:</p> <a href="#">Contact info</a>
             <p>©2024 Paavo Björkbacka</p>
         </div>
     </div>
