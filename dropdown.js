@@ -51,11 +51,16 @@ window.onclick = function (event) {
     }
 };
 
-function toggleNestedOptions() {
-    const nestedOptions = document.getElementById("nested-options");
-    const plusIcon = document.getElementById("plus-icon");
-    const minusIcon = document.getElementById("minus-icon");
+function toggleNestedOptions(clickedIcon) {
+    // Find the parent of the clicked icon (the dropdown header)
+    const dropdownHeader = clickedIcon.closest('.dropdown-header');
+    
+    // Find the nested options (ul) and the corresponding icons in this dropdown
+    const nestedOptions = dropdownHeader.nextElementSibling; // This will be the <ul> (nested dropdown)
+    const plusIcon = dropdownHeader.querySelector('.plus-icon');
+    const minusIcon = dropdownHeader.querySelector('.minus-icon');
 
+    // Toggle the display of nested options
     if (nestedOptions.style.display === "block") {
         // Hide the nested options
         nestedOptions.style.display = "none";

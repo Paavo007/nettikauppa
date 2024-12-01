@@ -77,6 +77,7 @@ a {
     font-size: 17px;
     width: 100%;
     max-width: 300px;
+    border-color: black;
 }
 
 .search-icon {
@@ -237,14 +238,14 @@ a {
 }
 
 /* Adjust icon styling */
-#plus-icon, #minus-icon {
+.plus-icon, .minus-icon {
     height: 20px;
     width: 20px;
     cursor: pointer;
     margin-left: 10px; /* Add space between text and icons */
 }
 
-#plus-icon:hover, #minus-icon:hover {
+.plus-icon:hover, .minus-icon:hover {
     transform: scale(1.2);
     transition: transform 0.2s ease;
 }
