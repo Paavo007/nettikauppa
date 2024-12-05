@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <link rel="stylesheet" href="login.css">
+</head>
+<body>
+    <div class="wrapper">
+        <!-- Header Section -->
+        <div class="header">
+            <img src="../Images/placeholder-image.png" alt="" class="logo">
+            <a href="/index.html"><img src="../SVG/homepage-icon.svg" alt="" class="homepage-icon"></a>        
+        </div>
+
+        <!-- Main Section -->
+        <div class="main">
+            <div class="login-container">
+                <h2>Login</h2>
+                <form id="login-form">
+                    <!-- Email Input -->
+                    <div class="input-group">
+                        <label for="email">Email</label>
+                        <input type="email" id="email" name="email" required>
+                    </div>
+                    <!-- Password Input -->
+                    <div class="input-group">
+                        <label for="password">Password</label>
+                        <input type="password" id="password" name="password" required>
+                    </div>
+                    <!-- Submit Button -->
+                    <button type="submit" class="login-btn">Sign In</button>
+                </form>
+                <p>Don't have an account? <a href="../SignupSite/signup.html" target="_blank">Sign up</a></p>
+            </div>
+        </div>
+
+        <!-- Footer Section -->
+        <div class="footer">
+            <p>Follow us here:</p>
+            <img src="../SVG/facebook.svg" alt="">
+            <img src="../SVG/instagram.svg" alt="">
+            <img src="../SVG/linkedin.svg" alt="">
+            <img src="../SVG/tiktok.svg" alt="">
+            <img src="../SVG/twitterx.svg" alt="">
+            <p>Contact us:</p> <a href="#">Contact Info</a>
+            <p>©2024 Paavo Björkbacka</p>
+        </div>
+    </div>
+
+    <!-- Script Section -->
+    <script>
+        document.getElementById("login-form").addEventListener("submit", function(e) {
+            e.preventDefault(); // Prevent the default form submission
+    
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+    
+            // Validate form inputs
+            if (!email || !password) {
+                alert("Please fill in both email and password.");
+                return;
+            }
+    
+            // Send login request to the server
+            fetch('http://localhost:3000/api/login', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ email, password })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    // Store user data in localStorage
+                    localStorage.setItem('userName', data.user.username);
+                    localStorage.setItem('userEmail', data.user.email);
+    
+                    alert('Login successful!');
+                    // Redirect to the homepage or another page
+                    window.location.href = "../index.html"; // Modify as needed
+                } else {
+                    alert(data.message); // Display error message from backend
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('An error occurred during login.');
+            });
+        });
+    </script>
+</body>
+</html>

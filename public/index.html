@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Verkkokauppa</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="dropdown.js" defer></script>
+</head>
+<body>
+    <div class="wrapper">
+        <div class="header">
+            <img src="Images/placeholder-image.png" alt="" class="logo">
+            
+            <!-- Login and Signup buttons (hidden if user is logged in) -->
+            <div id="auth-buttons">
+                <a href="SignupSite/signup.html" target="_blank">
+                    <button class="sign-in">
+                        <p>Signup</p>
+                        <img src="SVG/signin-icon.svg" alt="Sign In Icon" class="sign-in-icon">
+                    </button>
+                </a>
+            </div>
+            
+            <div id="logoffButtonContainer">
+                <button id="logoff-btn" onclick="logOff()">Log Off</button> <!-- Log Off button -->
+            </div>
+
+            <div class="menu-icons">
+                <img id="menu-icon" class="dropdown-menu-icon" src="SVG/menu_icon.svg" alt="Menu Icon" onclick="toggleDropdown()" style="cursor: pointer;">
+                <img id="close-icon" class="dropdown-menu-icon" src="SVG/X-icon.svg" alt="Close Icon" onclick="toggleDropdown()" style="cursor: pointer;">
+            </div>
+            <div class="dropdown-menu" id="dropdown-menu">
+                <div class="search-container">
+                    <input type="text" placeholder="Search.." class="search-bar">
+                    <img src="SVG/search_icon.svg" alt="Search Icon" class="search-icon">
+                </div>
+                <div class="dropdown-header">
+                    <p>Products</p>
+                    <img class="plus-icon" src="SVG/plus-icon.svg" alt="Plus Icon" onclick="toggleNestedOptions(this)">
+                    <img class="minus-icon" src="SVG/minus-icon.svg" alt="Minus Icon" onclick="toggleNestedOptions(this)" style="display: none;">
+                </div>
+                <ul class="nested-dropdown">
+                    <li><a href="#">Boxing gear</a></li>
+                    <li><a href="#">Training Equipment</a></li>
+                    <li><a href="#">Apparel & Clothing</a></li>
+                    <li><a href="#">Safety & Protection</a></li>
+                    <li><a href="#">Accessories</a></li>
+                </ul>
+                <div class="dropdown-header">
+                    <p>Customer support</p>
+                    <img class="plus-icon" src="SVG/plus-icon.svg" alt="Plus Icon" onclick="toggleNestedOptions(this)">
+                    <img class="minus-icon" src="SVG/minus-icon.svg" alt="Minus Icon" onclick="toggleNestedOptions(this)" style="display: none;">
+                </div>
+                <ul class="nested-dropdown">
+                    <li><a href="#">Return & Refund</a></li>
+                    <li><a href="#">Warranty & Service</a></li>
+                    <li><a href="#">Shipping & Delivery</a></li>
+                    <li><a href="#">Order Status</a></li>
+                    <li><a href="#">Contact Us</a></li>
+                    <li><a href="#">FAQ</a></li>
+                    <li><a href="#">Product Support</a></li>
+                    <li><a href="#">Troubleshooting</a></li>
+                    <li><a href="#">Account & Login Help</a></li>
+                    <li><a href="#">Payment Options</a></li>
+                    <li><a href="#">Privacy Policy</a></li>
+                    <li><a href="#">Terms & Conditions</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="main">
+            <!-- User Greeting (only shown if user is logged in) -->
+            <div id="user-greeting">
+                <p>Hello, <span id="user-name">Guest</span></p>
+            </div>
+
+            <div class="image-box">
+                <img src="Images/placeholder-image.png" alt="Placeholder image" class="shop-item">
+                <p>Kuvan 1 alapuolella olevaa tekstiä</p>
+            </div>
+            <div class="image-box">
+                <img src="Images/placeholder-image.png" alt="Placeholder image" class="shop-item">
+                <p>Kuvan 2 alapuolella olevaa tekstiä</p>
+            </div>
+        </div>
+        <div class="user-list">
+            <h2>Users</h2>
+            <div id="user-list">Loading users...</div>
+        </div>
+
+        <div class="footer">
+            <p>Follow our socials:</p>
+            <img src="SVG/facebook.svg" alt="">
+            <img src="SVG/instagram.svg" alt="">
+            <img src="SVG/linkedin.svg" alt="">
+            <img src="SVG/tiktok.svg" alt="">
+            <img src="SVG/twitterx.svg" alt="">
+            <p>Contact us:</p> <a href="#">Contact info</a>
+            <p>©2024 Paavo Björkbacka</p>
+        </div>
+    </div>
+
+    <script>
+        // Check if the user is logged in by checking localStorage
+        const userName = localStorage.getItem('userName');
+        const authButtons = document.getElementById('auth-buttons');
+        const userGreeting = document.getElementById('user-greeting');
+        const logoffButtonContainer = document.getElementById('logoffButtonContainer');
+        const logOffButton = document.getElementById('logoff-btn');
+
+        if (userName) {
+            // If the user is logged in, hide the auth buttons and display the user greeting
+            authButtons.style.display = 'none';
+            userGreeting.style.display = 'block'; // Show the greeting
+            document.getElementById('user-name').textContent = userName;
+        } else {
+            // If not logged in, ensure that the buttons are visible
+            authButtons.style.display = 'block';
+            userGreeting.style.display = 'none';
+            logoffButtonContainer.style.display = 'none';
+        }
+
+        // Log Off function
+        function logOff() {
+            // Remove user data from localStorage
+            localStorage.removeItem('userName');
+            // Redirect or reload the page to update the UI
+            window.location.reload(); // Reload the page
+        }
+
+        // Fetch users from the Node.js backend API
+        fetch('http://localhost:3000/api/users')
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error(`HTTP error! Status: ${response.status}`);
+                }
+                return response.json();
+            })
+            .then(data => {
+                const userList = document.getElementById('user-list');
+                userList.innerHTML = '';
+    
+                if (data.length > 0) {
+                    data.forEach(user => {
+                        const userItem = document.createElement('p');
+                        userItem.textContent = `${user.user_name} (${user.user_email})`;
+                        userList.appendChild(userItem);
+                    });
+                } else {
+                    userList.innerHTML = 'No users found.';
+                }
+            })
+            .catch(error => {
+                console.error('Error fetching data:', error);
+                document.getElementById('user-list').innerText = 'Error loading users.';
+            });
+    </script>
+</body>
+</html>
