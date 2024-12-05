@@ -98,9 +98,22 @@ app.post('/api/login', (req, res) => {
     if (err) {
       return res.status(500).json({ success: false, message: 'Error logging in.' });
     }
-
+    Console.Log(results.length)
     if (results.length === 0) {
-      return res.status(400).json({ success: false, message: 'Invalid email or password.' });
+      // Check if the login credentials match the admin credentials
+      if (email === 'admin@gmail.com' && password === 'admin') {
+        return res.status(200).json({
+          success: true,
+          message: 'Admin login successful!',
+          user: {
+            id: 13,
+            username: 'admin',
+            email: 'admin@gmail.com',
+          },
+        });
+      } else {
+        return res.status(400).json({ success: false, message: 'Invalid email or password.' });
+      }
     }
 
     // Respond with success and user data (excluding sensitive data like password)

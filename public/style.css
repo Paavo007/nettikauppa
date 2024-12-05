@@ -16,13 +16,12 @@ a {
 
 /* Header styling */
 .header {
-    background: rgb(211, 211, 211);
-    height: 120px;
     display: flex;
-    align-items: center;
-    padding: 0 20px;
-    position: relative;
     justify-content: space-between;
+    align-items: center; /* Vertically center the items */
+    padding: 10px 20px; /* Add padding to ensure spacing around content */
+    height: 80px; /* Set a fixed height for the header (adjust as needed) */
+    background: rgb(211, 211, 211); /* Optional: Set a background color */
 }
 
 /* Logo styling */
@@ -43,27 +42,28 @@ a {
     display: none; /* Hide the menu icon when the dropdown is open */
 }
 
-/* Log off button syling*/
-.logoff-btn {
-
-}
-
-/* Sign-in button styling */
+/* Styling for Sign In button */
 .sign-in {
-    margin: 15px;
-    flex-shrink: 0;
-    border-radius: 10px;
-    display: inline-flex;  /* Inline-flex for button to be compact */
-    align-items: center;  /* Vertically align content */
+    background-color: #4CAF50; /* Green background color */
+    color: white; /* White text */
+    padding: 5px 20px; /* Reduced top and bottom padding to make the button shorter */
     border: none;
-    background-color: rgb(120, 255, 79);
+    border-radius: 5px;
+    font-size: 16px;
     cursor: pointer;
-    padding: 2px 10px;  /* Adjust padding for content space */
+    display: flex;
+    align-items: center;
+    width: auto; /* Ensures the button size adapts to the text inside */
 }
 
-.sign-in-icon {
-    height: 25px;
-    padding-right: 0px;
+.sign-in:hover {
+    background-color: #45a049; /* Slightly darker green on hover */
+}
+
+.sign-in .sign-in-icon {
+    margin-left: 10px; /* Space between icon and text */
+    width: 20px;
+    height: 20px;
 }
 
 /* Search bar styling */

@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Page</title>
+    <link rel="stylesheet" href="admin-style.css">
+</head>
+<body>
+    <div class="admin-wrapper">
+        <header class="admin-header">
+            <h1>Admin Panel</h1>
+            <button id="logoff-btn" onclick="logOff()" class="logoff-btn">Log Off</button>
+        </header>
+
+        <main class="admin-main">
+            <section class="add-product">
+                <h2>Add New Product</h2>
+                <form id="add-product-form">
+                    <input type="text" name="name" placeholder="Product Name" required />
+                    <input type="number" name="price" placeholder="Price" required />
+                    <textarea name="description" placeholder="Product Description" required></textarea>
+                    <button type="submit">Add Product</button>
+                </form>
+            </section>
+
+            <section class="product-list">
+                <h2>Product List</h2>
+                <div id="product-list">
+                    <!-- Products will be dynamically loaded here -->
+                    <p>Loading products...</p>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <script>
+        // Check if the user is logged in and is an admin
+        const userName = localStorage.getItem('userName');
+        if (!userName || userName !== 'admin') {
+            // If not logged in or not admin, redirect to the main page
+            window.location.href = '../index.html';
+        }
+
+        // Log Off function for Admin page
+        function logOff() {
+            // Remove user data from localStorage
+            localStorage.removeItem('userName');
+            // Redirect or reload the page to update the UI
+            window.location.href = '../index.html'; // Redirect to the main page
+        }
+
+        // Example Admin functions (Add and Delete Product)
+        function addProduct() {
+            alert("Add Product functionality goes here!");
+        }
+
+        function deleteProduct() {
+            alert("Delete Product functionality goes here!");
+        }
+
+        // Optional: Handle form submission for adding a product (you can integrate backend logic)
+        document.getElementById('add-product-form').addEventListener('submit', function(event) {
+            event.preventDefault(); // Prevent form submission to allow custom handling
+
+            const productName = event.target.name.value;
+            const productPrice = event.target.price.value;
+            const productDescription = event.target.description.value;
+
+            // You can send this data to your server to add the product
+            console.log("Adding product:", productName, productPrice, productDescription);
+        });
+    </script>
+</body>
+</html>
