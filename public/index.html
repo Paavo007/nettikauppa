@@ -137,15 +137,18 @@
         const userGreeting = document.getElementById('user-greeting');
         const logoffButtonContainer = document.getElementById('logoffButtonContainer');
         const adminLinkContainer = document.getElementById('admin-link-container');
-        
+
         if (userName) {
             authButtons.style.display = 'none';
             userGreeting.style.display = 'block';
             document.getElementById('user-name').textContent = userName;
-    
+
             if (userName === 'admin') {
                 adminLinkContainer.style.display = 'block';
             }
+
+            // Show Logoff button
+            logoffButtonContainer.style.display = 'block';
         } else {
             authButtons.style.display = 'block';
             userGreeting.style.display = 'none';

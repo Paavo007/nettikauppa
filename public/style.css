@@ -2,6 +2,7 @@
 body, html {
     height: 100%;
     margin: 0;
+    overflow-x: hidden;
 }
 
 /* Wrapper that contains all page content */
@@ -91,16 +92,18 @@ a {
     margin-bottom: 40px;  /* Space between product sections */
 }
 
+/* Container for images to overflow horizontally */
 .image-box-container {
     display: flex;          /* Arrange items side by side */
     gap: 20px;              /* Space between items */
     overflow-x: auto;       /* Enable horizontal scrolling */
     overflow-y: hidden;     /* Disable vertical scrolling */
     padding: 10px 0;        /* Optional padding */
-    max-width: 100%;        /* Ensure the container does not exceed the screen width */
+    max-width: none;
+    width: 100vh;
     flex-wrap: nowrap;      /* Prevent wrapping of items */
+    white-space: nowrap;    /* Prevent content from breaking to new lines */
 }
-
 /* Individual image boxes */
 .image-box {
     flex-shrink: 0;         /* Prevent items from shrinking */
