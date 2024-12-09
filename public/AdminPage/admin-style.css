@@ -8,9 +8,9 @@ body {
 }
 
 .admin-wrapper {
-    width: 100%;
-    max-width: 1200px;
-    margin: 0 auto;
+    width: 95%; /* Ensure the wrapper takes 95% of the screen width */
+    max-width: 1200px; /* Maintain a maximum width for larger screens */
+    margin: 0 auto; /* Center the content horizontally */
     padding: 20px;
 }
 

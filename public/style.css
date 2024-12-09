@@ -1,14 +1,23 @@
-.wrapper {
-    display: flex;
-    flex-direction: column;
-    height: 100vh;
+/* Ensure the wrapper fills the entire height of the screen */
+body, html {
+    height: 100%;
+    margin: 0;
 }
 
+/* Wrapper that contains all page content */
+.wrapper {
+    display: flex;
+    flex-direction: column;  /* Arrange content vertically */
+    min-height: 100%;        /* Ensure the wrapper spans the full height of the viewport */
+}
+
+/* Padding and rounded corners for all elements inside the wrapper */
 .wrapper > * {
     padding: 10px;
     border-radius: 10px;
 }
 
+/* Style links */
 a {
     color: #4CAF50;
     text-decoration: none;
@@ -66,30 +75,6 @@ a {
     height: 20px;
 }
 
-/* Search bar styling */
-.search-container {
-    position: relative;
-    display: flex;
-    align-items: center;
-    flex-grow: 1;
-    max-width: 60%;
-}
-
-.search-bar {
-    border-radius: 10px;
-    padding: 6px 20px 6px 10px;
-    border: 2px solid rgb(160, 160, 160);
-    font-size: 17px;
-    width: 100%;
-    max-width: 300px;
-}
-
-.search-icon {
-    height: 20px;
-    margin-left: -30px;
-    cursor: pointer;
-}
-
 /* Main content styling */
 .main {
     display: flex;
@@ -101,23 +86,42 @@ a {
     flex: 1;
 }
 
-/* Image boxes */
-.image-box {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 10px;
-    border: 2px solid black;
-    border-radius: 10px;
-    background: white;
-    width: 45%; /* Default width */
-    box-sizing: border-box;
+/* Container for each product category */
+.product-category {
+    margin-bottom: 40px;  /* Space between product sections */
 }
 
+.image-box-container {
+    display: flex;          /* Arrange items side by side */
+    gap: 20px;              /* Space between items */
+    overflow-x: auto;       /* Enable horizontal scrolling */
+    overflow-y: hidden;     /* Disable vertical scrolling */
+    padding: 10px 0;        /* Optional padding */
+    max-width: 100%;        /* Ensure the container does not exceed the screen width */
+    flex-wrap: nowrap;      /* Prevent wrapping of items */
+}
+
+/* Individual image boxes */
+.image-box {
+    flex-shrink: 0;         /* Prevent items from shrinking */
+    width: 200px;           /* Set a fixed width for the boxes */
+    text-align: center;     /* Center align text */
+    border: 2px solid #ccc; /* Add a border around each box */
+    border-radius: 8px;     /* Optional: rounded corners for boxes */
+    padding: 10px;          /* Optional: space inside the box around the content */
+}
+
+/* Ensure images fit inside their containers */
 .shop-item {
-    width: 100%;
-    height: auto;
-    margin-bottom: 10px;
+    width: 100%;            /* Make images responsive */
+    height: auto;           /* Maintain aspect ratio */
+    border-radius: 8px;     /* Optional: rounded corners for images */
+}
+
+/* Style for product categories */
+h2 {
+    margin-bottom: 20px;
+    font-size: 24px;
 }
 
 .image-box p {
@@ -133,9 +137,11 @@ a {
     height: auto;
     flex-shrink: 0;
     text-align: center;
+    width: 100%;
     padding: 10px 0;
 }
 
+/* Footer text styling */
 .footer p {
     margin: 5px 0;
 }
@@ -186,7 +192,6 @@ a {
     transform: translateX(0); /* Slide into view */
     opacity: 1; /* Fade in */
 }
-
 
 /* Dropdown menu list */
 .dropdown-menu ul {
@@ -248,6 +253,29 @@ a {
 .plus-icon:hover, .minus-icon:hover {
     transform: scale(1.2);
     transition: transform 0.2s ease;
+}
+
+.search-container {
+    position: relative;
+    display: flex;
+    align-items: center;
+    flex-grow: 1;
+    max-width: 60%;
+}
+
+.search-bar {
+    border-radius: 10px;
+    padding: 6px 20px 6px 10px;
+    border: none;
+    font-size: 17px;
+    width: 100%;
+    max-width: 300px;
+}
+
+.search-icon {
+    height: 20px;
+    margin-left: -30px;
+    cursor: pointer;
 }
 
 /* Media Query for smaller screens */

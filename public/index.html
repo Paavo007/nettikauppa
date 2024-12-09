@@ -10,8 +10,8 @@
 <body>
     <div class="wrapper">
         <div class="header">
-            <img src="Images/placeholder-image.png" alt="" class="logo">
-            
+            <img src="Images/placeholder-image.png" alt="Logo" class="logo">
+
             <!-- Login and Signup buttons (hidden if user is logged in) -->
             <div id="auth-buttons">
                 <a href="SignupSite/signup.html">
@@ -21,12 +21,13 @@
                     </button>
                 </a>
             </div>
-            
-            <div id="logoffButtonContainer">
+
+            <!-- Logoff button (visible when user is logged in) -->
+            <div id="logoffButtonContainer" style="display: none;">
                 <button id="logoff-btn" class="sign-in" onclick="logOff()">
                     <p>Log off</p>
-                    <img src="SVG/signin-icon.svg" alt="Sign In Icon" class="sign-in-icon">
-                </button> <!-- Log Off button -->
+                    <img src="SVG/signin-icon.svg" alt="Log Off Icon" class="sign-in-icon">
+                </button>
             </div>
 
             <div class="menu-icons">
@@ -62,46 +63,71 @@
                     <li><a href="#">Order Status</a></li>
                     <li><a href="#">Contact Us</a></li>
                     <li><a href="#">FAQ</a></li>
-                    <li><a href="#">Product Support</a></li>
-                    <li><a href="#">Troubleshooting</a></li>
-                    <li><a href="#">Account & Login Help</a></li>
-                    <li><a href="#">Payment Options</a></li>
-                    <li><a href="#">Privacy Policy</a></li>
-                    <li><a href="#">Terms & Conditions</a></li>
+                    <li><a href="#">Site Terms & Policies</a></li>
                 </ul>
             </div>
         </div>
 
-        <div class="main">
-            <!-- User Greeting (only shown if user is logged in) -->
-            <div id="user-greeting">
-                <p>Hello, <span id="user-name">Guest</span></p>
-            </div>
+        <!-- User Greeting (only shown if user is logged in) -->
+        <div id="user-greeting" style="display: none;">
+            <p>Hello, <span id="user-name">Guest</span></p>
+        </div>
 
-            <div class="image-box">
-                <img src="Images/placeholder-image.png" alt="Placeholder image" class="shop-item">
-                <p>Kuvan 1 alapuolella olevaa tekstiä</p>
+        <div class="main">
+            <!-- Product Categories -->
+            <div id="boxing-gear-section" class="product-category">
+                <h2>Boxing Gear</h2>
+                <div class="image-box-container">
+                    <!-- Product Cards will go here -->
+                </div>
             </div>
-            <div class="image-box">
-                <img src="Images/placeholder-image.png" alt="Placeholder image" class="shop-item">
-                <p>Kuvan 2 alapuolella olevaa tekstiä</p>
+            <div id="safety-protection-section" class="product-category">
+                <h2>Safety & Protection</h2>
+                <div class="image-box-container">
+
+                </div>
+            </div>
+            <div id="training-equipment-section" class="product-category">
+                <h2>Training Equipment</h2>
+                <div class="image-box-container">
+
+                </div>
+            </div>
+            <div id="accessories-section" class="product-category">
+                <h2>Accessories</h2>
+                <div class="image-box-container">
+
+                </div>
+            </div>
+            <div id="apparel-clothing-section" class="product-category">
+                <h2>Apparel & Clothing</h2>
+                <div class="image-box-container">
+
+                </div>
             </div>
         </div>
-        
-        <div id="admin-link-container">
-            <a href="AdminPage/AdminPage.html" id="admin-link">Admin Page</a>
+
+        <div class="user-list">
+            <h2>Users</h2>
+            <div id="user-list">Loading users...</div>
+        </div>
+
+        <!-- Admin Link (only visible if user is admin) -->
+        <div id="admin-link-container" style="display: none;">
+            <a href="AdminPage/AdminPage.html" id="admin-link" target="_blank">Admin Page</a>
         </div>
 
         <div class="footer">
             <p>Follow our socials:</p>
-            <img src="SVG/facebook.svg" alt="">
-            <img src="SVG/instagram.svg" alt="">
-            <img src="SVG/linkedin.svg" alt="">
-            <img src="SVG/tiktok.svg" alt="">
-            <img src="SVG/twitterx.svg" alt="">
+            <img src="SVG/facebook.svg" alt="Facebook">
+            <img src="SVG/instagram.svg" alt="Instagram">
+            <img src="SVG/linkedin.svg" alt="LinkedIn">
+            <img src="SVG/tiktok.svg" alt="TikTok">
+            <img src="SVG/twitterx.svg" alt="Twitter">
             <p>Contact us:</p> <a href="#">Contact info</a>
             <p>©2024 Paavo Björkbacka</p>
         </div>
+
     </div>
 
     <script>
@@ -113,30 +139,90 @@
         const adminLinkContainer = document.getElementById('admin-link-container');
         
         if (userName) {
-            // If the user is logged in, hide the auth buttons and display the user greeting
             authButtons.style.display = 'none';
-            userGreeting.style.display = 'block'; // Show the greeting
+            userGreeting.style.display = 'block';
             document.getElementById('user-name').textContent = userName;
-
-            // Show the admin link if the logged-in user is admin
+    
             if (userName === 'admin') {
-                adminLinkContainer.style.display = 'block'; // Show the admin link
+                adminLinkContainer.style.display = 'block';
             }
         } else {
-            // If not logged in, ensure that the buttons are visible
             authButtons.style.display = 'block';
             userGreeting.style.display = 'none';
             logoffButtonContainer.style.display = 'none';
-            adminLinkContainer.style.display = 'none'; // Hide the admin link
+            adminLinkContainer.style.display = 'none';
         }
-
+    
         // Log Off function
         function logOff() {
-            // Remove user data from localStorage
             localStorage.removeItem('userName');
-            // Redirect or reload the page to update the UI
-            window.location.reload(); // Reload the page
+            window.location.reload();
         }
+    
+        const userList = document.getElementById('user-list');
+        userList.innerHTML = 'Loading users...';
+    
+        fetch('http://localhost:3000/api/users')
+            .then(response => response.json())
+            .then(data => {
+                userList.innerHTML = '';
+                if (data.length > 0) {
+                    data.forEach(user => {
+                        const userItem = document.createElement('p');
+                        userItem.textContent = `${user.user_name} (${user.user_email})`;
+                        userList.appendChild(userItem);
+                    });
+                } else {
+                    userList.innerHTML = 'No users found.';
+                }
+            })
+            .catch(error => {
+                console.error('Error fetching data:', error);
+                userList.innerText = 'Error loading users.';
+            });
+    
+        // Fetch products from the API and dynamically create product cards
+        function fetchProducts() {
+            fetch('http://localhost:3000/api/products')
+                .then(response => response.json())
+                .then(data => {
+                    const categories = {
+                        "Boxing Gear": "boxing-gear-section",
+                        "Safety & Protection": "safety-protection-section",
+                        "Training Equipment": "training-equipment-section",
+                        "Accessories": "accessories-section",
+                        "Apparel & Clothing": "apparel-clothing-section"
+                    };
+    
+                    Object.keys(categories).forEach(category => {
+                        const sectionId = categories[category];
+                        const filteredProducts = data.filter(product => product.prod_category === category);
+                        generateProductCards(filteredProducts, sectionId);
+                    });
+                })
+                .catch(error => {
+                    console.error('Error fetching products:', error);
+                });
+        }
+    
+        // Function to generate product cards
+        function generateProductCards(products, categorySection) {
+            const container = document.querySelector(`#${categorySection} .image-box-container`);
+            container.innerHTML = ""; // Clear existing content
+    
+            products.forEach(product => {
+                const productCard = document.createElement("div");
+                productCard.className = "image-box";
+                productCard.innerHTML = `
+                    <img src="Images/placeholder-image.png" alt="${product.prod_name}" class="shop-item">
+                    <p>${product.prod_name}  - $${product.prod_price}</p>
+                `;
+                container.appendChild(productCard);
+            });
+        }
+    
+        // Call the function to fetch and display products
+        fetchProducts();
     </script>
 </body>
 </html>

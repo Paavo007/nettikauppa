@@ -14,18 +14,15 @@ app.use(cors());
 app.use(bodyParser.json());
 
 // Serve static files (like images, CSS, JavaScript) from the 'public' folder
-app.use('/public', express.static(path.join(__dirname, 'public')));
-
-// Serve index.html from the 'public' folder
 app.use(express.static(path.join(__dirname, 'public')));
 
 // Set up the MySQL connection
 const db = mysql.createConnection({
   host: 'localhost',
-  user: 'root',  // Your MySQL username
-  password: 'root',  // Your MySQL password
-  database: 'nettikauppa',  // Replace with your database name
-  port: 3306,  // Ensure correct port
+  user: 'root', // Your MySQL username
+  password: 'root', // Your MySQL password
+  database: 'nettikauppa', // Replace with your database name
+  port: 3306, // Ensure correct port
 });
 
 // Connect to MySQL
@@ -44,14 +41,74 @@ app.get('/', (req, res) => {
 
 // API endpoint to fetch all users
 app.get('/api/users', (req, res) => {
-  const query = 'SELECT * FROM users';  // Query to fetch all users from the 'users' table
+  const query = 'SELECT * FROM users'; // Query to fetch all users from the 'users' table
   db.query(query, (err, results) => {
     if (err) {
       return res.status(500).json({ success: false, message: 'Error fetching users.' });
     }
-    res.json(results);  // Send the list of users as a JSON response
+    res.json(results); // Send the list of users as a JSON response
   });
 });
+
+// API endpoint to fetch products, with optional search functionality
+app.get('/api/products', (req, res) => {
+  const searchTerm = req.query.search || ''; // Get the search term from the query string
+
+  // Build the query to search for products by name (or other attributes if needed)
+  const query = `
+    SELECT * FROM products
+    WHERE prod_name LIKE ?`; // Use LIKE to search for partial matches
+
+  // Execute the query with the search term (using wildcard characters for partial matching)
+  db.query(query, [`%${searchTerm}%`], (err, results) => {
+    if (err) {
+      console.log('Error fetching products:', err); // Log the error message
+      return res.status(500).json({ success: false, message: 'Error fetching products.' });
+    }
+    console.log('Products fetched:', results); // Log the results of the query
+    res.json(results); // Send the results to the client
+  });
+});
+
+app.post('/api/products', (req, res) => {
+  const { prod_name, prod_description, prod_price, prod_quantity, prod_category, prod_company } = req.body;
+
+  // Log the incoming data to check its validity
+  console.log(req.body);  // Log the incoming request body
+
+  // Validate the input fields
+  if (!prod_name || !prod_description || !prod_price || !prod_quantity || !prod_category || !prod_company) {
+    return res.status(400).json({ success: false, message: 'Please provide all required fields.' });
+  }
+
+  // SQL query to insert the new product
+  const insertQuery = `
+    INSERT INTO products (prod_name, prod_description, prod_price, prod_quantity, prod_category, prod_company)
+    VALUES (?, ?, ?, ?, ?, ?)`;
+
+  // Execute the query to insert the product
+  db.query(insertQuery, [prod_name, prod_description, prod_price, prod_quantity, prod_category, prod_company], (err, result) => {
+    if (err) {
+      console.error('Error adding product:', err); // Log detailed error
+      return res.status(500).json({ success: false, message: 'Error adding product to the database.', error: err.message });
+    }
+
+    res.status(201).json({
+      success: true,
+      message: 'Product added successfully!',
+      product: {
+        prod_id: result.insertId, // Return the auto-generated product ID
+        prod_name,
+        prod_description,
+        prod_price,
+        prod_quantity,
+        prod_category,
+        prod_company,
+      }
+    });
+  });
+});
+
 
 // API endpoint to handle user sign-up (POST)
 app.post('/api/signup', (req, res) => {
@@ -74,7 +131,7 @@ app.post('/api/signup', (req, res) => {
 
     // Insert the new user into the database (password is stored as plain text here)
     const insertQuery = 'INSERT INTO users (user_name, user_email, user_password, user_address, user_postalcode, user_delivery_area, user_created_at) VALUES (?, ?, ?, ?, ?, ?, NOW())';
-    db.query(insertQuery, [username, email, password, address, postalcode, delivery_area], (err, result) => {
+    db.query(insertQuery, [username, email, password, address, postalcode, delivery_area], (err) => {
       if (err) {
         return res.status(500).json({ success: false, message: 'Error registering user.' });
       }
@@ -98,7 +155,6 @@ app.post('/api/login', (req, res) => {
     if (err) {
       return res.status(500).json({ success: false, message: 'Error logging in.' });
     }
-    Console.Log(results.length)
     if (results.length === 0) {
       // Check if the login credentials match the admin credentials
       if (email === 'admin@gmail.com' && password === 'admin') {
@@ -106,7 +162,7 @@ app.post('/api/login', (req, res) => {
           success: true,
           message: 'Admin login successful!',
           user: {
-            id: 13,
+            id: 1,
             username: 'admin',
             email: 'admin@gmail.com',
           },
